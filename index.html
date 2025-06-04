@@ -59,7 +59,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="Shaula Marquez">Shaula Marquez</h1>
+          <h1 class="name" title="Shaula">Shaula</h1>
 
           <p class="title">Data Analyst</p>
         </div>
@@ -196,7 +196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </p>
 
           <p>
-            Since 2023, I've been dedicated to honing my skills. I've developed a strong foundation that enables me to data challenges.
+            Since 2023, I've been dedicated to honing my skills in Data Analytics. I've developed a strong foundation that enables me to data challenges.
           </p>
           
           <p>
@@ -579,91 +579,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         </section>
 
-        <section class="skill">
-
-          <h3 class="h3 skills-title">My skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Excel</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">SQL</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Python</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Microsoft Power BI</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Tableau</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Machine Learning</h5>
-                <data value="60">60%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 60%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
 
         </section>
 
@@ -1567,7 +1482,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
           <h3 class="h3 form-title">Contact Form</h3>
 
-          <form action="#" class="form" data-form>
+          <form action="https://formspree.io/f/mvgrgzyn" method="POST" class="form" data-form>
 
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
@@ -1576,6 +1491,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
 
             <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <!-- Honeypot field -->
+            <input type="text" name="website" style="display:none;">
 
             <button class="form-btn" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
@@ -1607,6 +1525,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+<script>
+  const form = document.querySelector("[data-form]");
+  const submitBtn = document.querySelector("[data-form-btn]");
+
+  // Enable submit button only when all fields are filled
+  form.addEventListener("input", () => {
+    const inputs = form.querySelectorAll("[data-form-input]");
+    const allFilled = [...inputs].every(input => input.value.trim() !== "");
+    submitBtn.disabled = !allFilled;
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    // Honeypot spam check
+    if (formData.get("website")) return;
+
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      alert("Message sent! Thank you.");
+      form.reset();
+      submitBtn.disabled = true;
+    } else {
+      alert("Oops! Something went wrong.");
+    }
+  });
+</script>
+
 
 </body>
 
