@@ -495,16 +495,50 @@ main {
   #ABOUT
 \*-----------------------------------*/
 
-.about .article-title { margin-bottom: 15px; }
+.about .article-title { 
+  margin-bottom: 15px; 
+}
 
 .about-text {
-  color: var(--light-gray);
-  font-size: var(--fs-6);
-  font-weight: var(--fw-300);
+  color: var(--light-gray);      /* normal text color */
+  font-size: var(--fs-6);        
+  font-weight: var(--fw-300);    
   line-height: 1.6;
 }
 
-.about-text p { margin-bottom: 15px; }
+.about-text p { 
+  margin-bottom: 15px; 
+}
+
+.about-text strong { 
+  font-weight: var(--fw-500);    /* bold words */
+  color: var(--white-2);         /* optional: slightly brighter */
+}
+
+/* style ul and li inside about section */
+.about-text ul {
+  list-style: none;              /* remove default bullets */
+  padding-left: 20px;            /* indent for bullets */
+  margin-bottom: 15px;
+}
+
+.about-text ul li {
+  position: relative;
+  padding-left: 15px;            /* space for custom bullet */
+  margin-bottom: 8px;
+  font-weight: var(--fw-300);
+  color: inherit;                /* matches li text color */
+}
+
+.about-text ul li::before {
+  content: "•";                  /* custom bullet */
+  position: absolute;
+  left: 0;
+  color: inherit;                /* same as li text */
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);    /* not bold even if li contains strong */
+}
+
 
 
 
@@ -828,6 +862,41 @@ main {
   font-weight: var(--fw-300);
   line-height: 1.6;
 }
+
+/*-----------------------------------*\
+  #RESUME EXPERIENCE BULLETS & BOLD
+\*-----------------------------------*/
+
+/* Bold keywords in timeline text */
+.timeline-text strong { 
+  font-weight: var(--fw-500);    /* bold words */
+  color: var(--white-2);         /* matches About Me bold */
+}
+
+/* style ul and li inside timeline */
+.timeline-text ul {
+  list-style: none;              /* remove default bullets */
+  padding-left: 20px;            /* indent for bullets */
+  margin-bottom: 15px;
+}
+
+.timeline-text ul li {
+  position: relative;
+  padding-left: 15px;            /* space for custom bullet */
+  margin-bottom: 8px;
+  font-weight: var(--fw-300);
+  color: inherit;                /* matches li text color */
+}
+
+.timeline-text ul li::before {
+  content: "•";                  /* custom bullet */
+  position: absolute;
+  left: 0;
+  color: inherit;                /* same as li text */
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);    /* not bold even if li contains strong */
+}
+
 
 
 /**
