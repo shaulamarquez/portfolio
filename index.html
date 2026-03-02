@@ -1191,7 +1191,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-0" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-0').close()">×</button>
-                <div class="carousel-container" id="carousel">
+                <div class="carousel-container" id="carousel-0">
                   <div class="carousel-slide"><img src="./assets/images/Operations Specialist.png"></div>
                   </div>
               </dialog>
@@ -1209,9 +1209,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-1" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-1').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1)">&#10094;</button>
-                <button class="nav-btn next" onclick="scrollCarousel(1)">&#10095;</button>
-                <div class="carousel-container" id="carousel">
+                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-1')">&#10094;</button>
+
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-1', -1)">&#10094;</button>
+                <button class="nav-btn next" onclick="scrollCarousel('carousel-1', 1)">&#10095;</button>
+                <div class="carousel-container" id="carousel-1">
                   <div class="carousel-slide"><img src="./assets/images/1.png"></div>
                   <div class="carousel-slide"><img src="./assets/images/2.png"></div>
                   <div class="carousel-slide"><img src="./assets/images/3.png"></div>
@@ -1223,17 +1225,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <div class="carousel-slide"><img src="./assets/images/9.png"></div>
                   </div>
               </dialog>
-
-              <script>
-                function scrollCarousel(direction) {
-                  const container = document.getElementById('carousel');
-                  const slideWidth = container.offsetWidth; // Width of one slide
-                  container.scrollBy({
-                    left: direction * slideWidth,
-                    behavior: 'smooth'
-                  });
-                }
-              </script>
             </li>
             
             <li class="project-item active" data-filter-item data-category="market intelligence">
@@ -1248,27 +1239,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-2" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-2').close()">×</button>
-                <div class="carousel-container" id="carousel">
+                <div class="carousel-container" id="carousel-2">
                   <div class="carousel-slide"><img src="./assets/images/Sample data entry work.png"></div>
                 </div>
               </dialog>
-
-              <script>
-                function scrollCarousel(direction) {
-                  const container = document.getElementById('carousel');
-                  const slideWidth = container.offsetWidth; // Width of one slide
-                  container.scrollBy({
-                    left: direction * slideWidth,
-                    behavior: 'smooth'
-                  });
-                }
-              </script>
-
-            </li>
-
-            
+            </li>            
           </ul>
           
+          <script>
+            function scrollCarousel(carouselId, direction) {
+              const container = document.getElementById(carouselId);
+              if (!container) {
+                console.error("Carousel not found: " + carouselId);
+                return;
+              }
+              const slideWidth = container.offsetWidth;
+              container.scrollBy({
+                left: direction * slideWidth,
+                behavior: 'smooth'
+              });
+            }
+          </script>
         </section>
 
       </article>
