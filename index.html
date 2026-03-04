@@ -1288,11 +1288,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
               </dialog>
             </li>
+
+            <li class="project-item active" data-filter-item data-category="operational & workflow systems">
+              <a href="#" onclick="document.getElementById('modal-7').showModal()">
+                <figure class="project-img">
+                  <div class="project-item-icon-box"><ion-icon name="eye-outline"></ion-icon></div>
+                  <img src="./assets/images/Operational Cost Governance System.png" alt="Project 7">
+                </figure>
+                <h3 class="project-title">Operational Cost Governance System</h3>
+                <p class="project-category">Operational & Workflow Systems</p>
+              </a>
+
+              <dialog id="modal-7" class="project-modal">
+                <button class="close-btn" onclick="document.getElementById('modal-7').close()">×</button>
+
+                <div class="carousel-container" id="carousel-7">
+                  <div class="carousel-slide"><img src="./assets/images/Operational Cost Governance System.png"></div>
+                </div>
+              </dialog>
+            </li>
+
           </ul>
           
           <script>
             function scrollCarousel(carouselId, direction) {
-              const container = document.getElementById(carouselId);
+              const container = document.getElementById(carouselId);s
               if (!container) {
                 console.error("Carousel not found: " + carouselId);
                 return;
