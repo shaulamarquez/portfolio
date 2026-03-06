@@ -1326,34 +1326,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </ul>
           
           <script>
-            function scrollCarousel(carouselId, direction) {
-                const container = document.getElementById(carouselId);
-                const slides = container.querySelectorAll('.carousel-slide');
-                const slideWidth = slides[0].offsetWidth;
-                
-                // Get current scroll position
-                let currentScroll = container.scrollLeft;
-                
-                // Calculate how many pixels to jump
-                let jump = direction * slideWidth;
-                
-                // Calculate new position
-                let targetScroll = currentScroll + jump;
-                
-                // Logic: If we are at the start and hit 'back', go to the very end
-                if (targetScroll < 0) {
-                    targetScroll = container.scrollWidth - container.offsetWidth;
-                }
-                // Logic: If we are at the end and hit 'next', go to the start
-                else if (targetScroll >= (container.scrollWidth - container.offsetWidth)) {
-                    targetScroll = 0;
-                }
+          function scrollCarousel(carouselId, direction) {
+            const container = document.getElementById(carouselId);
+            
+            // 1. Calculate width inside the function, not outside
+            // This ensures we get the real width every time the button is clicked
+            const slide = container.querySelector('.carousel-slide');
+            const slideWidth = slide.offsetWidth; 
+            
+            // 2. Get the current scroll position
+            const currentScroll = container.scrollLeft;
+            
+            // 3. Calculate the target position
+            // We use Math.round to fix browser sub-pixel rounding errors
+            let targetScroll = currentScroll + (direction * slideWidth);
 
-                container.scrollTo({
-                    left: targetScroll,
-                    behavior: 'smooth'
-                });
+            // 4. Handle "Endless" loop logic
+            // Calculate max scrollable width
+            const maxScroll = container.scrollWidth - container.offsetWidth;
+
+            // If we go past the end, wrap to start
+            if (targetScroll > maxScroll) {
+              targetScroll = 0;
+            } 
+            // If we go before the start, wrap to end
+            else if (targetScroll < 0) {
+              targetScroll = maxScroll;
             }
+
+            // 5. Apply the movement
+            container.scrollTo({
+              left: targetScroll,
+              behavior: 'smooth'
+            });
+          }
            
           </script>
         </section>
