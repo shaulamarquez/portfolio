@@ -1155,7 +1155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-1" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-1').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-1')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-1', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-1', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-1">
                   <div class="carousel-slide"><img src="./assets/images/Hire Me.jpg"></div>
@@ -1179,7 +1179,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-2" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-2').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-2')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-2', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-2', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-2">
                   <div class="carousel-slide"><img src="./assets/images/1.png"></div>
@@ -1225,7 +1225,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-4" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-4').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-4')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-4', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-4', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-4">
                   <div class="carousel-slide"><img src="./assets/images/Data Strat 5.png"></div>
@@ -1247,7 +1247,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-5" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-5').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-5')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-5', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-5', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-5">
                   <div class="carousel-slide"><img src="./assets/images/Data Strat 7.png"></div>
@@ -1269,7 +1269,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-6" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-6').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-6')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-6', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-6', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-6">
                   <div class="carousel-slide"><img src="./assets/images/Data Strat 9.png"></div>
@@ -1310,9 +1310,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               <dialog id="modal-8" class="project-modal">
                 <button class="close-btn" onclick="document.getElementById('modal-8').close()">×</button>
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-8')">&#10094;</button>
-
-                <button class="nav-btn prev" onclick="scrollCarousel(-1, 'carousel-8')">&#10094;</button>
+                <button class="nav-btn prev" onclick="scrollCarousel('carousel-8', -1)">&#10094;</button>
                 <button class="nav-btn next" onclick="scrollCarousel('carousel-8', 1)">&#10095;</button>
                 <div class="carousel-container" id="carousel-8">
                   <div class="carousel-slide"><img src="./assets/images/Lead 1.png"></div>
@@ -1329,39 +1327,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           
           <script>
             function scrollCarousel(carouselId, direction) {
-              const container = document.getElementById(carouselId);
-              
-              // 1. Calculate width inside the function, not outside
-              // This ensures we get the real width every time the button is clicked
-              const slide = container.querySelector('.carousel-slide');
-              const slideWidth = slide.offsetWidth; 
-              
-              // 2. Get the current scroll position
-              const currentScroll = container.scrollLeft;
-              
-              // 3. Calculate the target position
-              // We use Math.round to fix browser sub-pixel rounding errors
-              let targetScroll = currentScroll + (direction * slideWidth);
+                const container = document.getElementById(carouselId);
+                const slides = container.querySelectorAll('.carousel-slide');
+                const slideWidth = slides[0].offsetWidth;
+                
+                // Get current scroll position
+                let currentScroll = container.scrollLeft;
+                
+                // Calculate how many pixels to jump
+                let jump = direction * slideWidth;
+                
+                // Calculate new position
+                let targetScroll = currentScroll + jump;
+                
+                // Logic: If we are at the start and hit 'back', go to the very end
+                if (targetScroll < 0) {
+                    targetScroll = container.scrollWidth - container.offsetWidth;
+                }
+                // Logic: If we are at the end and hit 'next', go to the start
+                else if (targetScroll >= (container.scrollWidth - container.offsetWidth)) {
+                    targetScroll = 0;
+                }
 
-              // 4. Handle "Endless" loop logic
-              // Calculate max scrollable width
-              const maxScroll = container.scrollWidth - container.offsetWidth;
-
-              // If we go past the end, wrap to start
-              if (targetScroll > maxScroll) {
-                targetScroll = 0;
-              } 
-              // If we go before the start, wrap to end
-              else if (targetScroll < 0) {
-                targetScroll = maxScroll;
-              }
-
-              // 5. Apply the movement
-              container.scrollTo({
-                left: targetScroll,
-                behavior: 'smooth'
-              });
+                container.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
             }
+           
           </script>
         </section>
 

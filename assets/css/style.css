@@ -1215,7 +1215,6 @@ main {
 .prev { left: 10px; }
 .next { right: 10px; }
 .nav-btn:hover { background: var(--orange-yellow-crayola); color: var(--eerie-black-2); }
-}
 
 
 
